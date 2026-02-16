@@ -1,0 +1,151 @@
+{
+  "kind": "build_request",
+  "title": "Daily Goals Tracker App (Set, Check Off, and Review)",
+  "projectName": "Daily Goals",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement Internet Identity sign-in and ensure all goal data is scoped per authenticated user principal (unauthenticated users should be prompted to sign in before viewing or editing goals).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create an app for my daily goals"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When not signed in, the UI shows a clear sign-in prompt and does not display any private goal data.",
+        "After signing in, the user can create and view their own goals.",
+        "Two different principals do not see each other’s goals (data is partitioned by principal)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Add backend support for managing daily goals: create, read (list), update, and archive goals, including stable persistence across canister upgrades.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create an app for my daily goals"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes methods to create a goal and return its unique id.",
+        "Backend exposes methods to list active goals and list archived goals for the calling principal.",
+        "Backend exposes methods to update goal fields (at minimum: title; optionally: notes).",
+        "Backend exposes a method to archive/unarchive a goal (archived goals are excluded from the default active list).",
+        "Goal data remains intact after a redeploy/upgrade (stable state)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add backend support for tracking daily completion for goals by calendar date (user can check/uncheck a goal for a given day) and retrieving a day view of completion statuses.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create an app for my daily goals"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend supports setting completion true/false for (goalId, date) for the calling principal.",
+        "Backend can return today’s (or a requested date’s) goals with completion state for that date.",
+        "Toggling completion updates subsequent fetch results correctly."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Create the core frontend screens for daily goals: Today dashboard (checklist), Goals management (create/edit/archive), and a simple History view to review past days’ completions.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create an app for my daily goals"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Today view shows active goals as a checklist with completion state for the selected date (default: today).",
+        "User can add a new goal from the UI and see it appear in the active goals list.",
+        "User can edit an existing goal’s title and see updates reflected after save.",
+        "User can archive a goal and it no longer appears on Today view (but appears in an Archived section).",
+        "History view allows selecting a previous date and viewing completion statuses for that date."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Wire the frontend to the backend using React Query for fetching/mutating goals and daily completion, including loading, empty, and error states for each screen.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create an app for my daily goals"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All goal lists and day statuses are fetched via React Query queries.",
+        "Create/update/archive/toggle-completion actions use React Query mutations and invalidate/refetch the relevant queries.",
+        "Each main screen shows a sensible loading state and a readable error message on failure.",
+        "Empty states are shown when there are no active goals (with a clear CTA to create one)."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply a cohesive, creative visual theme for the app (colors, typography, spacing, and component styling) and use it consistently across all screens; avoid a blue/purple-dominant palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App uses a consistent theme across navigation, headings, buttons, and cards.",
+        "Primary palette is not blue/purple-dominant (e.g., warm neutrals/greens/oranges are acceptable).",
+        "Layout feels intentional (clear hierarchy, consistent spacing, readable typography)."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add generated static image assets to the frontend and display them in the UI (stored under frontend/public/assets/generated).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated with the specified filenames.",
+        "At least the logo is used in the app header/login area, and the empty-state illustration is used when there are no goals."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (all logic in the main actor file).",
+    "Do not edit any frontend files under the immutablePaths listed in SYSTEM_CONTEXT (compose or create new components instead).",
+    "Use English for all user-facing UI text."
+  ],
+  "nonGoals": [
+    "Notifications, reminders, push messaging, or email delivery.",
+    "Real-time multi-user collaboration or chat.",
+    "Third-party authentication providers other than Internet Identity.",
+    "External databases or non-Internet-Computer hosting/deployment configuration."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimalist app logo mark with a checkmark and sun motif, warm neutral palette (daily-goals-logo.dim_512x512.png)",
+      "Soft illustrated empty-state scene (desk/journal/checklist), warm tones, lots of whitespace (empty-goals-illustration.dim_1200x800.png)",
+      "Subtle repeating background pattern (dots/lines) in light warm gray (warm-pattern-bg.dim_1920x1080.png)"
+    ],
+    "edits": []
+  }
+}

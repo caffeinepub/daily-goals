@@ -1,0 +1,15 @@
+{
+  "frontend/src/index.css": "Global styles with warm OKLCH color palette (terracotta primary, sage secondary, cream backgrounds) for both light and dark modes, custom font configuration.",
+  "frontend/tailwind.config.js": "Tailwind configuration extended with warm color tokens, custom shadows, Inter font family, and design system utilities.",
+  "frontend/src/App.tsx": "Main application component managing screen navigation (today/goals/history) with ThemeProvider, AuthGate, ProfileSetupModal, and Toaster.",
+  "frontend/src/components/AuthGate.tsx": "Authentication wrapper that shows login screen with logo and background pattern for unauthenticated users, or renders children for authenticated users.",
+  "frontend/src/components/LoginButton.tsx": "Login/logout button component using Internet Identity with loading states and query cache clearing on logout.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog that prompts new users to enter their name on first login, preventing flash by checking actor readiness, with close button hidden via CSS.",
+  "frontend/src/components/AppShell.tsx": "Layout wrapper providing background pattern, header, main content area, and footer with caffeine.ai attribution.",
+  "frontend/src/components/AppHeader.tsx": "Header component with logo, user greeting, tab navigation (Today/Goals/History), and login button.",
+  "frontend/src/screens/TodayDashboard.tsx": "Today view showing date picker and checklist of goals with completion toggles, empty state with illustration when no goals exist.",
+  "frontend/src/screens/GoalsManagement.tsx": "Goals management screen with create goal dialog, active goals list with archive actions, and archived goals section.",
+  "frontend/src/screens/HistoryView.tsx": "History view with calendar date picker and read-only display of goal completion status for selected date.",
+  "frontend/src/hooks/useCurrentUserProfile.ts": "React Query hooks for fetching and saving user profile with proper actor dependency handling to prevent modal flash.",
+  "frontend/src/hooks/useGoalQueries.ts": "React Query hooks for all goal operations (fetch active/archived/day goals, create, archive, toggle completion) with automatic cache invalidation."
+}

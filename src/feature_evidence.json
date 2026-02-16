@@ -1,0 +1,115 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-sign-in-and-ensure-all-goal-data-is-scoped-per-authenticated-user-principal-unauthenticated-users-should-be-prompted-to-sign-in-before-viewing-or-editing-goals",
+      "featureTitle": "Implement Internet Identity sign-in and ensure all goal data is scoped per authenticated user principal (unauthenticated users should be prompted to sign in before viewing or editing goals).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AuthGate.tsx",
+        "frontend/src/components/LoginButton.tsx",
+        "frontend/src/components/ProfileSetupModal.tsx",
+        "frontend/src/hooks/useCurrentUserProfile.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-the-core-frontend-screens-for-daily-goals-today-dashboard-checklist-goals-management-create-edit-archive-and-a-simple-history-view-to-review-past-days-completions",
+      "featureTitle": "Create the core frontend screens for daily goals: Today dashboard (checklist), Goals management (create/edit/archive), and a simple History view to review past days’ completions.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppHeader.tsx",
+        "frontend/src/screens/GoalsManagement.tsx",
+        "frontend/src/screens/HistoryView.tsx",
+        "frontend/src/screens/TodayDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-wire-the-frontend-to-the-backend-using-react-query-for-fetching-mutating-goals-and-daily-completion-including-loading-empty-and-error-states-for-each-screen",
+      "featureTitle": "Wire the frontend to the backend using React Query for fetching/mutating goals and daily completion, including loading, empty, and error states for each screen.",
+      "files": [
+        "frontend/src/screens/GoalsManagement.tsx",
+        "frontend/src/screens/HistoryView.tsx",
+        "frontend/src/screens/TodayDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-cohesive-creative-visual-theme-for-the-app-colors-typography-spacing-and-component-styling-and-use-it-consistently-across-all-screens-avoid-a-blue-purple-dominant-palette",
+      "featureTitle": "Apply a cohesive, creative visual theme for the app (colors, typography, spacing, and component styling) and use it consistently across all screens; avoid a blue/purple-dominant palette.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppShell.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-to-the-frontend-and-display-them-in-the-ui-stored-under-frontend-public-assets-generated",
+      "featureTitle": "Add generated static image assets to the frontend and display them in the UI (stored under frontend/public/assets/generated).",
+      "files": [
+        "frontend/src/components/AppHeader.tsx",
+        "frontend/src/components/AppShell.tsx",
+        "frontend/src/screens/TodayDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

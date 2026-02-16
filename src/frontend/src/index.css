@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.75rem;
+        /* Warm cream background */
+        --background: 0.97 0.015 85;
+        --foreground: 0.25 0.02 65;
+        /* Warm card with slight tint */
+        --card: 0.99 0.01 85;
+        --card-foreground: 0.25 0.02 65;
+        --popover: 0.99 0.01 85;
+        --popover-foreground: 0.25 0.02 65;
+        /* Warm terracotta primary */
+        --primary: 0.55 0.15 35;
+        --primary-foreground: 0.99 0.01 85;
+        /* Soft sage secondary */
+        --secondary: 0.88 0.05 145;
+        --secondary-foreground: 0.25 0.02 65;
+        /* Muted warm gray */
+        --muted: 0.92 0.01 75;
+        --muted-foreground: 0.50 0.02 65;
+        /* Warm accent - golden */
+        --accent: 0.82 0.12 75;
+        --accent-foreground: 0.25 0.02 65;
+        /* Warm destructive */
+        --destructive: 0.58 0.20 25;
+        --destructive-foreground: 0.99 0.01 85;
+        /* Subtle borders */
+        --border: 0.88 0.02 75;
+        --input: 0.88 0.02 75;
+        --ring: 0.55 0.15 35;
+        /* Chart colors - warm palette */
+        --chart-1: 0.65 0.18 35;
+        --chart-2: 0.70 0.15 145;
+        --chart-3: 0.75 0.12 75;
+        --chart-4: 0.60 0.14 55;
+        --chart-5: 0.68 0.16 95;
+        --sidebar: 0.97 0.015 85;
+        --sidebar-foreground: 0.25 0.02 65;
+        --sidebar-primary: 0.55 0.15 35;
+        --sidebar-primary-foreground: 0.99 0.01 85;
+        --sidebar-accent: 0.92 0.01 75;
+        --sidebar-accent-foreground: 0.25 0.02 65;
+        --sidebar-border: 0.88 0.02 75;
+        --sidebar-ring: 0.55 0.15 35;
+    }
+
+    .dark {
+        /* Dark warm background */
+        --background: 0.20 0.02 45;
+        --foreground: 0.95 0.01 75;
+        /* Dark warm card */
+        --card: 0.25 0.02 45;
+        --card-foreground: 0.95 0.01 75;
+        --popover: 0.28 0.02 45;
+        --popover-foreground: 0.95 0.01 75;
+        /* Lighter terracotta for dark mode */
+        --primary: 0.68 0.15 35;
+        --primary-foreground: 0.20 0.02 45;
+        /* Lighter sage for dark mode */
+        --secondary: 0.45 0.08 145;
+        --secondary-foreground: 0.95 0.01 75;
+        /* Dark muted */
+        --muted: 0.32 0.02 55;
+        --muted-foreground: 0.70 0.02 65;
+        /* Dark accent */
+        --accent: 0.75 0.12 75;
+        --accent-foreground: 0.20 0.02 45;
+        /* Dark destructive */
+        --destructive: 0.65 0.20 25;
+        --destructive-foreground: 0.95 0.01 75;
+        /* Dark borders */
+        --border: 0.35 0.02 55;
+        --input: 0.35 0.02 55;
+        --ring: 0.68 0.15 35;
+        /* Dark chart colors */
+        --chart-1: 0.68 0.18 35;
+        --chart-2: 0.65 0.15 145;
+        --chart-3: 0.75 0.12 75;
+        --chart-4: 0.62 0.14 55;
+        --chart-5: 0.70 0.16 95;
+        --sidebar: 0.25 0.02 45;
+        --sidebar-foreground: 0.95 0.01 75;
+        --sidebar-primary: 0.68 0.15 35;
+        --sidebar-primary-foreground: 0.20 0.02 45;
+        --sidebar-accent: 0.32 0.02 55;
+        --sidebar-accent-foreground: 0.95 0.01 75;
+        --sidebar-border: 0.35 0.02 55;
+        --sidebar-ring: 0.68 0.15 35;
+    }
+
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+}
+

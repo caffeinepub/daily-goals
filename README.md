@@ -1,2 +1,3 @@
-# daily-goals
-Exported from Caffeine project: Daily Goals
+## Daily Goals
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

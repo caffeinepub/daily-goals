@@ -1,0 +1,114 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-16T16:50:23.341Z",
+  "summary": "Most core frontend screens, React Query wiring, warm theme styling, and an Internet Identity auth gate were added. The backend adds goal creation/listing and some completion tracking, but key backend acceptance criteria (returning goal IDs, update/notes, archive/unarchive, stable persistence, and explicit set true/false completion) are not evidenced in the truncated backend diff. Several extra features (profiles, admin/access-control secret token, caffeine footer) were added beyond the request.",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Backend exposes methods to create a goal and return its unique id.",
+      "reason": "The added backend method `createGoal` returns `async ()` (no id returned) in the visible diff snippet.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Backend exposes methods to update goal fields (at minimum: title; optionally: notes).",
+      "reason": "No goal update method is shown in the diff summary/snippet; frontend also does not show an edit flow, and backend types use `description` rather than optional `notes`.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/screens/GoalsManagement.tsx"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Backend exposes a method to archive/unarchive a goal (archived goals are excluded from the default active list).",
+      "reason": "Frontend calls `actor.archiveGoal(goalId)` but the backend snippet does not show an `archiveGoal` (or unarchive) implementation; due to truncation it is not evidenced.",
+      "evidence": [
+        "frontend/src/hooks/useGoalQueries.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Goal data remains intact after a redeploy/upgrade (stable state).",
+      "reason": "No `stable` variables or `preupgrade`/`postupgrade` (or equivalent stable persistence strategy) are shown in the added backend file snippet; persistence across upgrades is not evidenced.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Backend supports setting completion true/false for (goalId, date) for the calling principal.",
+      "reason": "The backend method shown is `toggleGoalCompletion(goalId, dayTimestamp)` (toggle semantics). The requirement/AC calls for explicitly setting completion to true/false; no `setGoalCompletion(goalId, date, done)` (or similar) is evidenced.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useGoalQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "User can edit an existing goal’s title and see updates reflected after save.",
+      "reason": "No edit UI or update mutation hook is shown; GoalsManagement shows create and archive flows, but not editing.",
+      "evidence": [
+        "frontend/src/screens/GoalsManagement.tsx",
+        "frontend/src/hooks/useGoalQueries.ts"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "User profile system (name) with profile setup modal and backend profile methods.",
+      "reason": "BuildRequest did not ask for user profiles; only Internet Identity sign-in and goal tracking were requested.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/ProfileSetupModal.tsx",
+        "frontend/src/hooks/useCurrentUserProfile.ts",
+        "frontend/src/components/AppHeader.tsx"
+      ]
+    },
+    {
+      "description": "Admin/access-control initialization via a secret URL parameter (`caffeineAdminToken`) and authorization mixins in the backend.",
+      "reason": "BuildRequest does not mention admin roles, secret tokens, or custom access control initialization beyond Internet Identity authentication.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts",
+        "frontend/src/utils/urlParams.ts"
+      ]
+    },
+    {
+      "description": "Caffeine.ai attribution footer with referral link.",
+      "reason": "Not requested in the BuildRequest requirements or acceptance criteria.",
+      "evidence": [
+        "frontend/src/components/AppShell.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.67,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/AppHeader.tsx",
+    "frontend/src/components/AppShell.tsx",
+    "frontend/src/components/AuthGate.tsx",
+    "frontend/src/components/LoginButton.tsx",
+    "frontend/src/components/ProfileSetupModal.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCurrentUserProfile.ts",
+    "frontend/src/hooks/useGoalQueries.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/screens/GoalsManagement.tsx",
+    "frontend/src/screens/HistoryView.tsx",
+    "frontend/src/screens/TodayDashboard.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

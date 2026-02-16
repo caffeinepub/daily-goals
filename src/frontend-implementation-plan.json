@@ -1,0 +1,199 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Daily Goals Tracker (Frontend)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add Internet Identity sign-in UX and gate all goal screens behind authentication, with per-user profile setup and cache clearing on logout.",
+      "acceptanceCriteria": [
+        "When not signed in, the UI shows a clear sign-in prompt and does not display any private goal data.",
+        "After signing in, the user can create and view their own goals.",
+        "Two different principals do not see each other’s goals (data is partitioned by principal)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the main app shell that uses the authorization component’s Internet Identity flow (via existing useInternetIdentity/useActor patterns) to gate the goals UI: show a sign-in prompt when unauthenticated; when authenticated, render the main navigation + screens. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/AuthGate.tsx",
+          "operation": "create",
+          "description": "Add an AuthGate wrapper that enforces: unauthenticated users see a dedicated sign-in view; authenticated users proceed. Handle authorization failures from backend traps with a readable message. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "create",
+          "description": "Implement a login/logout button using the authorization component guidance: Internet Identity login, logout clears React Query cache, and robust handling for the 'already authenticated' edge case. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentUserProfile.ts",
+          "operation": "create",
+          "description": "Create a React Query hook that fetches getCallerUserProfile from the backend (via useActor) using the authorization component’s recommended pattern to avoid profile-setup modal flash (actor dependency reflected in isLoading/isFetched). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a modal/dialog that prompts for the user’s name on first login (when getCallerUserProfile returns null) and saves it via saveCallerUserProfile; avoid showing principal IDs in UI by using the saved name. Use shadcn-ui dialog/form primitives for consistent styling. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement Today checklist, Goals management (create/edit/archive), and History view screens, with navigation between them.",
+      "acceptanceCriteria": [
+        "Today view shows active goals as a checklist with completion state for the selected date (default: today).",
+        "User can add a new goal from the UI and see it appear in the active goals list.",
+        "User can edit an existing goal’s title and see updates reflected after save.",
+        "User can archive a goal and it no longer appears on Today view (but appears in an Archived section).",
+        "History view allows selecting a previous date and viewing completion statuses for that date."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/screens/TodayDashboard.tsx",
+          "operation": "create",
+          "description": "Create the Today dashboard screen: date picker (default today), checklist of goals for that date, and toggle completion interactions. Use shadcn-ui components (cards/buttons/checkboxes) for layout and interactions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/GoalsManagement.tsx",
+          "operation": "create",
+          "description": "Create the Goals management screen: active goals list with inline edit (title, optionally description), create-goal form, and archive action; include an Archived section listing archived goals. Use shadcn-ui form inputs and dialogs for edit/create flows. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/HistoryView.tsx",
+          "operation": "create",
+          "description": "Create the History screen: select a previous date and show that day’s goals with completion status (read-only review by default). Use shadcn-ui date/input and list primitives for a clean layout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/AppHeader.tsx",
+          "operation": "create",
+          "description": "Create a shared header that includes: app logo, current user display name (from profile), LoginButton, and navigation between Today / Goals / History (tabs/segmented control). Use shadcn-ui navigation primitives (tabs/buttons) for consistent UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the created screens into the authenticated area (e.g., tab-based navigation) so none are orphaned; ensure unauthenticated users cannot navigate to or see goal/history content. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Wire all screens to backend goal and completion capabilities using React Query queries/mutations with loading, empty, and error states.",
+      "acceptanceCriteria": [
+        "All goal lists and day statuses are fetched via React Query queries.",
+        "Create/update/archive/toggle-completion actions use React Query mutations and invalidate/refetch the relevant queries.",
+        "Each main screen shows a sensible loading state and a readable error message on failure.",
+        "Empty states are shown when there are no active goals (with a clear CTA to create one)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/api/goals.ts",
+          "operation": "create",
+          "description": "Add a thin frontend API layer that calls backend capabilities via the actor (getActiveGoals/getArchivedGoals/createGoal/archiveGoal/getGoalsForDay/toggleGoalCompletion, and update goal fields if available) and normalizes errors into user-friendly messages. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/queries/useGoals.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for fetching active and archived goals, keyed by authenticated principal via the actor identity (through useActor), and expose loading/error states. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/queries/useGoalsForDay.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch getGoalsForDay(dayTimestamp) and return a shape convenient for checklist rendering; include proper enabled gating until actor is ready. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/mutations/useGoalMutations.ts",
+          "operation": "create",
+          "description": "Create React Query mutations for create, update, archive/unarchive (as supported), and completion toggling; invalidate/refetch the relevant queries (active goals, archived goals, and day view). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/TodayDashboard.tsx",
+          "operation": "modify",
+          "description": "Integrate React Query hooks/mutations into Today dashboard with explicit loading, error, and empty states; ensure toggling completion updates the UI via invalidation/refetch. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/GoalsManagement.tsx",
+          "operation": "modify",
+          "description": "Integrate React Query hooks/mutations into Goals management with create/edit/archive flows; show per-action pending states and readable errors; ensure lists update via invalidation/refetch. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/HistoryView.tsx",
+          "operation": "modify",
+          "description": "Integrate day-query fetching for selected date with loading/error states, and render completion statuses for that day. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a cohesive warm, non-blue/purple-dominant theme (colors, typography, spacing) consistently across the app.",
+      "acceptanceCriteria": [
+        "App uses a consistent theme across navigation, headings, buttons, and cards.",
+        "Primary palette is not blue/purple-dominant (e.g., warm neutrals/greens/oranges are acceptable).",
+        "Layout feels intentional (clear hierarchy, consistent spacing, readable typography)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styles and CSS variables used by Tailwind/shadcn-ui to implement a warm neutral palette (e.g., sand/cream foregrounds with green/orange accents), consistent typography, and spacing defaults; ensure no blue/purple-dominant primary accents."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extension (if needed) to support the warm theme tokens and ensure consistent usage across components (e.g., primary/accent/muted mapping aligns with warm palette)."
+        },
+        {
+          "path": "frontend/src/components/AppShell.tsx",
+          "operation": "create",
+          "description": "Add a shared layout wrapper (background, max width, consistent padding, card styling) used by all authenticated screens for cohesive hierarchy and spacing; use shadcn-ui container/card primitives. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap screens with AppShell and ensure theme styles are consistently applied across header, navigation, buttons, forms, and cards."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add and display the required generated static images (logo, empty-state illustration, subtle background pattern) from frontend/public/assets/generated.",
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated with the specified filenames.",
+        "At least the logo is used in the app header/login area, and the empty-state illustration is used when there are no goals."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/daily-goals-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated logo asset at frontend/public/assets/generated/daily-goals-logo.dim_512x512.png and ensure it is available as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/empty-goals-illustration.dim_1200x800.png",
+          "operation": "create",
+          "description": "Add the generated empty-state illustration asset at frontend/public/assets/generated/empty-goals-illustration.dim_1200x800.png and ensure it is available as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/warm-pattern-bg.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the generated subtle repeating background image at frontend/public/assets/generated/warm-pattern-bg.dim_1920x1080.png and ensure it is available as a static file."
+        },
+        {
+          "path": "frontend/src/components/AppHeader.tsx",
+          "operation": "modify",
+          "description": "Render the logo from frontend/public/assets/generated/daily-goals-logo.dim_512x512.png in the header and/or sign-in prompt area so branding is visible immediately."
+        },
+        {
+          "path": "frontend/src/screens/TodayDashboard.tsx",
+          "operation": "modify",
+          "description": "Use the empty-state illustration from frontend/public/assets/generated/empty-goals-illustration.dim_1200x800.png when there are no active goals for the selected date, with a clear CTA to create a goal."
+        },
+        {
+          "path": "frontend/src/components/AppShell.tsx",
+          "operation": "modify",
+          "description": "Apply the warm background pattern from frontend/public/assets/generated/warm-pattern-bg.dim_1920x1080.png as a subtle app background layer while keeping content readable (sufficient contrast and whitespace)."
+        }
+      ]
+    }
+  ]
+}

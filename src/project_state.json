@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "App to track and manage the user's daily goals.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimalist app logo mark with a checkmark and sun motif, warm neutral palette (daily-goals-logo.dim_512x512.png)\n- Soft illustrated empty-state scene (desk/journal/checklist), warm tones, lots of whitespace (empty-goals-illustration.dim_1200x800.png)\n- Subtle repeating background pattern (dots/lines) in light warm gray (warm-pattern-bg.dim_1920x1080.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-sign-in-and-ensure-all-goal-data-is-scoped-per-authenticated-user-principal-unauthenticated-users-should-be-prompted-to-sign-in-before-viewing-or-editing-goals",
+      "title": "Implement Internet Identity sign-in and ensure all goal data is scoped per authenticated user principal (unauthenticated users should be prompted to sign in before viewing or editing goals).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-core-frontend-screens-for-daily-goals-today-dashboard-checklist-goals-management-create-edit-archive-and-a-simple-history-view-to-review-past-days-completions",
+      "title": "Create the core frontend screens for daily goals: Today dashboard (checklist), Goals management (create/edit/archive), and a simple History view to review past days’ completions.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-the-frontend-to-the-backend-using-react-query-for-fetching-mutating-goals-and-daily-completion-including-loading-empty-and-error-states-for-each-screen",
+      "title": "Wire the frontend to the backend using React Query for fetching/mutating goals and daily completion, including loading, empty, and error states for each screen.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-creative-visual-theme-for-the-app-colors-typography-spacing-and-component-styling-and-use-it-consistently-across-all-screens-avoid-a-blue-purple-dominant-palette",
+      "title": "Apply a cohesive, creative visual theme for the app (colors, typography, spacing, and component styling) and use it consistently across all screens; avoid a blue/purple-dominant palette.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-to-the-frontend-and-display-them-in-the-ui-stored-under-frontend-public-assets-generated",
+      "title": "Add generated static image assets to the frontend and display them in the UI (stored under frontend/public/assets/generated).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create an app for setting, tracking, and managing daily goals.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add backend support for managing daily goals: create, read (list), update, and archive goals, including stable persistence across canister upgrades.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add backend support for tracking daily completion for goals by calendar date (user can check/uncheck a goal for a given day) and retrieving a day view of completion statuses.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Daily Goals",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
